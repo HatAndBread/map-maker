@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :add_controller_action_names, except: %i[create update destroy]
+  before_action :authenticate_user!
 
   private
 
