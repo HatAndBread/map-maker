@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapboxMap.css';
-// @ts-ignore
-import mapboxgl, { LngLatLike } from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl, { LngLatLike } from 'mapbox-gl';
 
 const MapboxMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
