@@ -11,9 +11,9 @@ const App = ({ controllerData }: { controllerData: any }) => {
       case 'pages#home':
         return <Home />;
       case 'maps#new':
-        return <MapEditor />;
+        return <MapEditor edit={false} />;
       case 'maps#edit':
-        return <MapEditor />;
+        return <MapEditor edit={true} />;
       default:
         return <></>;
     }
