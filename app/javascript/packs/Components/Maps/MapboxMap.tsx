@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 
 const MapboxMap = () => {
