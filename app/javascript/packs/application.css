@@ -1,3 +1,2 @@
-body {
-  background-color: yellow;
-}
+@import './Styles/Maps/ToolBox.css';
+@import 'mapbox-gl/dist/mapbox-gl.css';
