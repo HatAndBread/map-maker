@@ -2,6 +2,7 @@ import React from 'react';
 import { AppContext } from './Context';
 import Home from './Pages/Home';
 import MapEditor from './Pages/MapEditor';
+import MapsShow from './Pages/MapsShow';
 
 const App = ({ controllerData }: { controllerData: any }) => {
   console.log(controllerData);
@@ -10,6 +11,8 @@ const App = ({ controllerData }: { controllerData: any }) => {
     switch (controllerData.controllerAction) {
       case 'pages#home':
         return <Home />;
+      case 'maps#show':
+        return <MapsShow />;
       case 'maps#new':
         return <MapEditor edit={false} />;
       case 'maps#edit':

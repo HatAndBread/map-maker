@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MapboxMap from '../Components/Maps/MapboxMap';
 import { useAppContext } from '../Context';
 import { Map } from '../Types/Map';
+import ToolBox from '../Components/Maps/ToolBox';
 
 const MapEditor = ({ edit }: { edit: boolean }) => {
   const map = useAppContext().controllerData.map as Map;
@@ -13,6 +14,7 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
     <div className='MapEditor'>
       <div>This is the map editor</div>
       <MapboxMap />
+      <ToolBox />
     </div>
   );
 };

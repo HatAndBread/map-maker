@@ -1,5 +1,5 @@
 class MapsController < ApplicationController
-  before_action :use_react, only: %i[new edit]
+  before_action :use_react, only: %i[new edit show]
   before_action :fetch_map, only: %i[show create edit update destroy]
   def index
     @map = Map.where(user_id: current_user.id)
