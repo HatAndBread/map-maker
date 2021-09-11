@@ -5,7 +5,7 @@ const MapShow = () => {
   console.log('HI!');
   return (
     <div>
-      <Map />
+      <h2>Hi! This is the map show page!</h2>
     </div>
   );
 };

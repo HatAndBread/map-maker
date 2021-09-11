@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import MapboxMap from '../Components/Maps/MapboxMap';
 import { useAppContext } from '../Context';
 import { Map } from '../Types/Map';
 import ToolBox from '../Components/Maps/ToolBox';
+import MapWrapper from '../Components/Maps/MapWrapper';
+import mapboxgl from 'mapbox-gl';
 
 const MapEditor = ({ edit }: { edit: boolean }) => {
-  const map = useAppContext().controllerData.map as Map;
-  const [mapProperties, setMapProperties] = useState<Map>(map);
-  useEffect(() => {
-    console.log(mapProperties, '🐪');
-  }, []);
+  const mapData = useAppContext().controllerData.map as Map;
+  const [theMap, setTheMap] = useState<null | mapboxgl.Map>();
+
   return (
     <div className='MapEditor'>
       <div>This is the map editor</div>
-      <MapboxMap />
+      <MapWrapper mapData={mapData} />
       <ToolBox />
     </div>
   );

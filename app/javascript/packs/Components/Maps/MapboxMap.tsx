@@ -1,9 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 
-const MapboxMap = () => {
+type Props = {
+  children?: JSX.Element;
+  setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
+  theMap: null | mapboxgl.Map;
+};
+const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const [theMap, setTheMap] = useState<null | mapboxgl.Map>(null);
   useEffect(() => {
     if (!theMap && mapContainer.current) {
       mapboxgl.accessToken = process.env.MAPBOX_KEY;
@@ -18,7 +22,9 @@ const MapboxMap = () => {
   }, [theMap, mapContainer]);
   return (
     <div className='MapboxMap'>
-      <div className='map-container' ref={mapContainer} id='map'></div>
+      <div className='map-container' ref={mapContainer} id='map'>
+        {children}
+      </div>
     </div>
   );
 };
