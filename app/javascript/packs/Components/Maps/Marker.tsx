@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl, { Map, LngLatLike } from 'mapbox-gl';
+import mapboxgl, { Map, LngLatLike, PointLike } from 'mapbox-gl';
 
 const Marker = ({
   map,
@@ -21,8 +21,12 @@ const Marker = ({
     if (!mounted && markerRef.current && imgUrl) {
       const marker = markerRef.current;
       marker.style.backgroundImage = `url(${imgUrl})`;
-      marker.style.top = `${parseFloat(marker.style.top) + 40}px`; // TODO: Not this but something like this
-      new mapboxgl.Marker(markerRef.current).setLngLat(lngLat).addTo(map);
+      const markerOptions = {
+        offset: [0, -20] as PointLike,
+      };
+      new mapboxgl.Marker(markerRef.current, markerOptions)
+        .setLngLat(lngLat)
+        .addTo(map);
       setMounted(true);
     }
   }, [imgUrl, markerRef, mounted]);
