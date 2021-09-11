@@ -11,7 +11,6 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
 
   return (
     <div className='MapEditor'>
-      <div>This is the map editor</div>
       <MapWrapper mapData={mapData} />
       <ToolBox />
     </div>

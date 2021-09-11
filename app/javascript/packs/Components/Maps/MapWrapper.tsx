@@ -14,9 +14,19 @@ const MapWrapper = ({ mapData }: Props) => {
   return (
     <div className='MapWrapper'>
       <MapboxMap theMap={theMap} setTheMap={setTheMap}>
-        {theMap && <Marker map={theMap} lngLat={[32, 35]} imgUrl={example} />}
+        {theMap &&
+          [1, 2, 3].map((n) => (
+            <Marker
+              map={theMap}
+              lngLat={[
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 10 * n),
+              ]}
+              imgUrl={example}
+              key={n}
+            />
+          ))}
       </MapboxMap>
-      <ToolBox />
     </div>
   );
 };

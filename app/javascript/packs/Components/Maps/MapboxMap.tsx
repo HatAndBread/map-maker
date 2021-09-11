@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 
 type Props = {
-  children?: JSX.Element;
+  children?: JSX.Element[];
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
   theMap: null | mapboxgl.Map;
 };
