@@ -1,0 +1,31 @@
+.modal-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  transition: 0.8s;
+  opacity: 0;
+  background-color: rgba(50, 50, 50, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-inner-box {
+  min-width: 200px;
+  min-height: 300px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: snow;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .closer {
+    font-size: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

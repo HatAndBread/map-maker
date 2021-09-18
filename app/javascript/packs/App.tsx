@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppContext } from './Context';
 import Home from './Pages/Home';
 import MapEditor from './Pages/MapEditor';
 import MapsShow from './Pages/MapsShow';
 
 const App = ({ controllerData }: { controllerData: any }) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   console.log(controllerData);
   const getComponents = () => {
     // Render your components for each view here ✨😘
