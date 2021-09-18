@@ -1,5 +1,18 @@
 .ToolBox {
-  width: 250px;
+  width: 100%;
+  min-width: 300px;
   background-color: lightgray;
   border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .Icon {
+    width: 64px;
+    cursor: pointer;
+  }
+  .icon-container {
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    max-height: 96px;
+  }
 }

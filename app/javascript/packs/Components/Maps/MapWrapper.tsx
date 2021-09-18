@@ -10,7 +10,6 @@ type Props = {
 };
 const MapWrapper = ({ mapData }: Props) => {
   const [theMap, setTheMap] = useState<null | mapboxgl.Map>();
-  console.log(example);
   return (
     <div className='MapWrapper'>
       <MapboxMap theMap={theMap} setTheMap={setTheMap}>
