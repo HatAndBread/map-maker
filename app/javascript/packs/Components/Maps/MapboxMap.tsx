@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { useAppContext } from '../../Context';
-
+import { useMapEditorContext } from '../../Pages/MapEditor';
+let previousCallback: null | (() => any);
 type Props = {
   children?: JSX.Element[];
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
@@ -15,7 +16,8 @@ const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
     () => ['maps#new', 'maps#edit'].includes(controllerAction),
     [controllerAction]
   );
-  console.log('is being edited', isBeingEdited);
+  const editorContext = isBeingEdited ? useMapEditorContext() : null;
+  console.log(editorContext, 'sdfkldf');
   useEffect(() => {
     if (!theMap && mapContainer.current) {
       mapboxgl.accessToken = process.env.MAPBOX_KEY;
@@ -25,14 +27,17 @@ const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
         center: [-70.9, 42.35],
         zoom: 9,
       });
-      map.on('click', () => {
-        if (isBeingEdited) {
-          console.log('You clicked the map!');
-        }
-      });
       setTheMap(map);
     }
   }, [theMap, mapContainer]);
+
+  useEffect(() => {
+    if (theMap && editorContext?.mapClickCallback) {
+      if (previousCallback) theMap.off('click', previousCallback);
+      previousCallback = editorContext.mapClickCallback;
+      theMap.on('click', previousCallback);
+    }
+  }, [editorContext, theMap]);
   return (
     <div className='MapboxMap'>
       <div className='map-container' ref={mapContainer} id='map'>

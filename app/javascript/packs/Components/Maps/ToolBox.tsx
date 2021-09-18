@@ -6,9 +6,11 @@ import modalSrc from '../../../../assets/images/modal.svg';
 const ToolBox = ({
   currentTool,
   setCurrentTool,
+  setMapClickCallback,
 }: {
   currentTool: null | string;
   setCurrentTool: React.Dispatch<React.SetStateAction<string>>;
+  setMapClickCallback: React.Dispatch<React.SetStateAction<() => any>>;
 }) => {
   return (
     <div className='ToolBox'>
@@ -17,6 +19,9 @@ const ToolBox = ({
         title='Add a marker'
         currentTool={currentTool}
         setCurrentTool={setCurrentTool}
+        clickCallback={() =>
+          setMapClickCallback(() => () => console.log('hi!!!!'))
+        }
         name={'marker'}
       />
       <Icon
@@ -24,6 +29,9 @@ const ToolBox = ({
         title='Add a label'
         currentTool={currentTool}
         setCurrentTool={setCurrentTool}
+        clickCallback={() =>
+          setMapClickCallback(() => () => console.log('hello!'))
+        }
         name={'label'}
       />
       <Icon
@@ -31,6 +39,9 @@ const ToolBox = ({
         title='Add a modal'
         currentTool={currentTool}
         setCurrentTool={setCurrentTool}
+        clickCallback={() =>
+          setMapClickCallback(() => () => console.log('howdy!'))
+        }
         name={'modal'}
       />
     </div>
