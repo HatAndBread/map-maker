@@ -37,6 +37,13 @@ const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
       previousCallback = editorContext.mapClickCallback;
       theMap.on('click', previousCallback);
     }
+    if (theMap && editorContext) {
+      if (editorContext.currentTool === 'marker') {
+        theMap.getCanvas().style.cursor = 'crosshair';
+      } else {
+        theMap.getCanvas().style.cursor = 'grab';
+      }
+    }
   }, [editorContext, theMap]);
   return (
     <div className='MapboxMap'>

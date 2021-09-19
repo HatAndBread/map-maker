@@ -1,8 +1,12 @@
 import React from 'react';
+import { useMapEditorContext } from '../../Pages/MapEditor';
 import Icon from './Icon';
+import MarkerTools from './MarkerTools';
 import markerIconSrc from '../../../../assets/images/pin.svg';
 import labelSrc from '../../../../assets/images/label.svg';
 import modalSrc from '../../../../assets/images/modal.svg';
+import mapStyleSrc from '../../../../assets/images/map.svg';
+
 const ToolBox = ({
   currentTool,
   setCurrentTool,
@@ -12,38 +16,55 @@ const ToolBox = ({
   setCurrentTool: React.Dispatch<React.SetStateAction<string>>;
   setMapClickCallback: React.Dispatch<React.SetStateAction<() => any>>;
 }) => {
+  const editorCtx = useMapEditorContext();
+  const onMarkerIconClick = () => {
+    setCurrentTool('marker');
+  };
+  const onLabelIconClick = () => {
+    setCurrentTool('label');
+  };
+  const onModalIconClick = () => {
+    setCurrentTool('modal');
+  };
+  const onStyleIconClick = () => {
+    setCurrentTool('style');
+    editorCtx.setCurrentlyOpenModal('style');
+  };
+  const getCurrentToolSet = () => {
+    switch (currentTool) {
+      case 'modal':
+        return <MarkerTools />;
+      case 'marker':
+        return <MarkerTools />;
+      default:
+        return <></>;
+    }
+  };
   return (
     <div className='ToolBox'>
-      <Icon
-        src={markerIconSrc}
-        title='Add a marker'
-        currentTool={currentTool}
-        setCurrentTool={setCurrentTool}
-        clickCallback={() =>
-          setMapClickCallback(() => () => console.log('hi!!!!'))
-        }
-        name={'marker'}
-      />
-      <Icon
-        src={labelSrc}
-        title='Add a label'
-        currentTool={currentTool}
-        setCurrentTool={setCurrentTool}
-        clickCallback={() =>
-          setMapClickCallback(() => () => console.log('hello!'))
-        }
-        name={'label'}
-      />
-      <Icon
-        src={modalSrc}
-        title='Add a modal'
-        currentTool={currentTool}
-        setCurrentTool={setCurrentTool}
-        clickCallback={() =>
-          setMapClickCallback(() => () => console.log('howdy!'))
-        }
-        name={'modal'}
-      />
+      <div className='top-icons'>
+        <Icon
+          src={markerIconSrc}
+          title='Add a marker'
+          clickCallback={() => setMapClickCallback(onMarkerIconClick)}
+        />
+        <Icon
+          src={labelSrc}
+          title='Add a label'
+          clickCallback={() => setMapClickCallback(onLabelIconClick)}
+        />
+        <Icon
+          src={modalSrc}
+          title='Add a modal'
+          clickCallback={() => setMapClickCallback(onModalIconClick)}
+        />
+        <Icon
+          src={mapStyleSrc}
+          title='Map style'
+          clickCallback={() => setMapClickCallback(onStyleIconClick)}
+        />
+      </div>
+      <div className='specific-toolset'>{getCurrentToolSet()}</div>
     </div>
   );
 };

@@ -1,30 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Icon = ({
-  currentTool,
-  setCurrentTool,
   clickCallback,
   src,
   title,
-  name,
+  alt,
 }: {
-  currentTool: null | string;
-  setCurrentTool: React.Dispatch<React.SetStateAction<string>>;
   clickCallback: () => any;
   src: string;
   title: string;
-  name: string;
+  alt?: string;
 }) => {
+  const [hasError, setHasError] = useState(false);
   return (
     <div className='icon-container'>
-      <img
-        className='Icon'
-        src={src}
-        title={title}
-        onClick={() => {
-          setCurrentTool(name);
-          clickCallback();
-        }}></img>
+      {hasError ? (
+        <div className='Icon'>{alt}</div>
+      ) : (
+        <img
+          className='Icon'
+          src={src}
+          alt={alt || ''}
+          title={title}
+          onError={() => setHasError(true)}
+          onClick={() => {
+            clickCallback();
+          }}></img>
+      )}
     </div>
   );
 };

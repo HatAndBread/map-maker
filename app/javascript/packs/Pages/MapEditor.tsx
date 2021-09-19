@@ -10,26 +10,24 @@ type EditorProps = {
   currentTool: string | null;
   edit: boolean;
   mapClickCallback: () => any;
+  setCurrentlyOpenModal: React.Dispatch<React.SetStateAction<string>>;
 };
 const MapEditorContext = createContext<Partial<EditorProps>>({});
 export const useMapEditorContext = () => useContext(MapEditorContext);
 
 const MapEditor = ({ edit }: { edit: boolean }) => {
   const mapData = useAppContext().controllerData.map as Map;
-  const [theMap, setTheMap] = useState<null | mapboxgl.Map>();
   const [currentlyOpenModal, setCurrentlyOpenModal] = useState<null | string>(
-    'hi!'
+    null
   );
   const [currentTool, setCurrentTool] = useState<null | string>(null);
   const [mapClickCallback, setMapClickCallback] = useState<() => any>(
     () => () => {}
   );
 
-  useEffect(() => {
-    console.log(`Current tool: ${currentTool}`);
-  }, [currentTool]);
   return (
-    <MapEditorContext.Provider value={{ currentTool, edit, mapClickCallback }}>
+    <MapEditorContext.Provider
+      value={{ currentTool, edit, mapClickCallback, setCurrentlyOpenModal }}>
       <div className='MapEditor'>
         <MapWrapper mapData={mapData} />
         <ToolBox

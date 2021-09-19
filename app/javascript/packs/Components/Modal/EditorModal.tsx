@@ -8,6 +8,14 @@ const EditorModal = ({
   setCurrentlyOpenModal: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const close = () => setCurrentlyOpenModal(null);
+  const getModalContent = () => {
+    switch (currentlyOpenModal) {
+      case 'style':
+        return <div>Yo I'm the style modal.</div>;
+      default:
+        return <></>;
+    }
+  };
   return (
     <div
       className={'modal-outer'}
@@ -22,6 +30,7 @@ const EditorModal = ({
             𝙓
           </div>
         </div>
+        <div className='modal-content'>{getModalContent()}</div>
       </div>
     </div>
   );
