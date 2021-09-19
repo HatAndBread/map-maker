@@ -17,19 +17,18 @@ const ToolBox = ({
   setMapClickCallback: React.Dispatch<React.SetStateAction<() => any>>;
 }) => {
   const editorCtx = useMapEditorContext();
-  const onMarkerIconClick = () => {
-    setCurrentTool('marker');
+  const onMapClickMarker = (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
+    if (editorCtx.theMap) {
+      console.log(editorCtx.mapData);
+    }
   };
-  const onLabelIconClick = () => {
-    setCurrentTool('label');
+  const onMapClickLabel = (e) => {
+    console.log('icon');
   };
-  const onModalIconClick = () => {
-    setCurrentTool('modal');
+  const onMapClickModal = (e) => {
+    console.log('modal');
   };
-  const onStyleIconClick = () => {
-    setCurrentTool('style');
-    editorCtx.setCurrentlyOpenModal('style');
-  };
+  const onMapClickStyle = (e) => {};
   const getCurrentToolSet = () => {
     switch (currentTool) {
       case 'modal':
@@ -46,22 +45,38 @@ const ToolBox = ({
         <Icon
           src={markerIconSrc}
           title='Add a marker'
-          clickCallback={() => setMapClickCallback(onMarkerIconClick)}
+          clickCallback={() => {
+            setCurrentTool('marker');
+            setMapClickCallback(
+              () => (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) =>
+                onMapClickMarker(e)
+            );
+          }}
         />
         <Icon
           src={labelSrc}
           title='Add a label'
-          clickCallback={() => setMapClickCallback(onLabelIconClick)}
+          clickCallback={() => {
+            setCurrentTool('label');
+            setMapClickCallback(() => onMapClickLabel);
+          }}
         />
         <Icon
           src={modalSrc}
           title='Add a modal'
-          clickCallback={() => setMapClickCallback(onModalIconClick)}
+          clickCallback={() => {
+            setCurrentTool('modal');
+            setMapClickCallback(() => onMapClickModal);
+          }}
         />
         <Icon
           src={mapStyleSrc}
           title='Map style'
-          clickCallback={() => setMapClickCallback(onStyleIconClick)}
+          clickCallback={() => {
+            setCurrentTool('style');
+            editorCtx.setCurrentlyOpenModal('style');
+            setMapClickCallback(() => onMapClickStyle);
+          }}
         />
       </div>
       <div className='specific-toolset'>{getCurrentToolSet()}</div>

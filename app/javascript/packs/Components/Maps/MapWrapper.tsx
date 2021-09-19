@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Map } from '../../Types/Map';
 import MapboxMap from '../Maps/MapboxMap';
-import ToolBox from '../Maps/ToolBox';
 import Marker from '../Maps/Marker';
 import example from '../../../../assets/images/location.svg';
+import mapboxgl from 'mapbox-gl';
 
 type Props = {
   mapData: Map;
+  theMap: mapboxgl.Map;
+  setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
 };
-const MapWrapper = ({ mapData }: Props) => {
-  const [theMap, setTheMap] = useState<null | mapboxgl.Map>();
+const MapWrapper = ({ mapData, setTheMap, theMap }: Props) => {
   return (
     <div className='MapWrapper'>
       <MapboxMap theMap={theMap} setTheMap={setTheMap}>

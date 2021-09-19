@@ -3,33 +3,48 @@ import { useAppContext } from '../Context';
 import { Map } from '../Types/Map';
 import ToolBox from '../Components/Maps/ToolBox';
 import MapWrapper from '../Components/Maps/MapWrapper';
-import mapboxgl from 'mapbox-gl';
 import EditorModal from '../Components/Modal/EditorModal';
+import mapboxgl from 'mapbox-gl';
 
 type EditorProps = {
   currentTool: string | null;
   edit: boolean;
-  mapClickCallback: () => any;
+  theMap: mapboxgl.Map;
+  mapData: Map;
+  setMapData: React.Dispatch<React.SetStateAction<Map>>;
+  setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
+  mapClickCallback: (e: any) => any;
   setCurrentlyOpenModal: React.Dispatch<React.SetStateAction<string>>;
 };
 const MapEditorContext = createContext<Partial<EditorProps>>({});
 export const useMapEditorContext = () => useContext(MapEditorContext);
 
 const MapEditor = ({ edit }: { edit: boolean }) => {
-  const mapData = useAppContext().controllerData.map as Map;
+  const mapDataFromController = useAppContext().controllerData.map as Map;
+  const [mapData, setMapData] = useState<Map>(mapDataFromController);
+  const [theMap, setTheMap] = useState<null | mapboxgl.Map>(null);
   const [currentlyOpenModal, setCurrentlyOpenModal] = useState<null | string>(
     null
   );
   const [currentTool, setCurrentTool] = useState<null | string>(null);
-  const [mapClickCallback, setMapClickCallback] = useState<() => any>(
+  const [mapClickCallback, setMapClickCallback] = useState<(e) => any>(
     () => () => {}
   );
 
   return (
     <MapEditorContext.Provider
-      value={{ currentTool, edit, mapClickCallback, setCurrentlyOpenModal }}>
+      value={{
+        currentTool,
+        edit,
+        theMap,
+        setTheMap,
+        mapData,
+        setMapData,
+        mapClickCallback,
+        setCurrentlyOpenModal,
+      }}>
       <div className='MapEditor'>
-        <MapWrapper mapData={mapData} />
+        <MapWrapper mapData={mapData} setTheMap={setTheMap} theMap={theMap} />
         <ToolBox
           currentTool={currentTool}
           setCurrentTool={setCurrentTool}

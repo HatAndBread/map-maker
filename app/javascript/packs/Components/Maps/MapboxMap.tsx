@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useState, useMemo } from 'react';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { useAppContext } from '../../Context';
 import { useMapEditorContext } from '../../Pages/MapEditor';
-let previousCallback: null | (() => any);
+let previousCallback: (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => any =
+  () => {};
+
 type Props = {
   children?: JSX.Element[];
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
@@ -33,7 +35,7 @@ const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
 
   useEffect(() => {
     if (theMap && editorContext?.mapClickCallback) {
-      if (previousCallback) theMap.off('click', previousCallback);
+      theMap.off('click', previousCallback);
       previousCallback = editorContext.mapClickCallback;
       theMap.on('click', previousCallback);
     }
