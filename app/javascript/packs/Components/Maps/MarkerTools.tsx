@@ -9,9 +9,11 @@ const MarkerTools = () => {
       <div className='two-column-grid'>
         <Icon
           src={''}
-          title='stuff'
+          title='Marker Style'
           alt='💅'
-          clickCallback={() => console.log('hi!')}
+          clickCallback={() => {
+            editorCtx.setCurrentlyOpenModal('marker-style');
+          }}
         />
       </div>
     </div>

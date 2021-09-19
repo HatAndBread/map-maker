@@ -33,7 +33,7 @@ const ToolBox = ({
   const getCurrentToolSet = () => {
     switch (currentTool) {
       case 'modal':
-        return <MarkerTools />;
+        return <div />;
       case 'marker':
         return <MarkerTools />;
       default:

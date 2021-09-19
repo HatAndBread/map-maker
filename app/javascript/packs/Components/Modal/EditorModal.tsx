@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MarkerStyleModal from './MarkerStyleModal';
 
 const EditorModal = ({
   currentlyOpenModal,
@@ -10,8 +11,8 @@ const EditorModal = ({
   const close = () => setCurrentlyOpenModal(null);
   const getModalContent = () => {
     switch (currentlyOpenModal) {
-      case 'style':
-        return <div>Yo I'm the style modal.</div>;
+      case 'marker-style':
+        return <MarkerStyleModal />;
       default:
         return <></>;
     }

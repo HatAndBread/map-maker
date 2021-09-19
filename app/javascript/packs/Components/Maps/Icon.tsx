@@ -7,15 +7,22 @@ const Icon = ({
   alt,
 }: {
   clickCallback: () => any;
-  src: string;
+  src?: string;
   title: string;
   alt?: string;
 }) => {
   const [hasError, setHasError] = useState(false);
   return (
     <div className='icon-container'>
-      {hasError ? (
-        <div className='Icon'>{alt}</div>
+      {hasError || !src ? (
+        <div
+          className='Icon'
+          title={title}
+          onClick={() => {
+            clickCallback();
+          }}>
+          {alt}
+        </div>
       ) : (
         <img
           className='Icon'
