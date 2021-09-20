@@ -9,6 +9,7 @@ class MapsController < ApplicationController
 
   def new
     @map = Map.new
+    @markers = @map.markers
   end
 
   def create

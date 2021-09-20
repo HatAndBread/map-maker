@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMapEditorContext } from '../../Pages/MapEditor';
 import Icon from './Icon';
 import MarkerTools from './MarkerTools';
@@ -6,6 +6,7 @@ import markerIconSrc from '../../../../assets/images/pin.svg';
 import labelSrc from '../../../../assets/images/label.svg';
 import modalSrc from '../../../../assets/images/modal.svg';
 import mapStyleSrc from '../../../../assets/images/map.svg';
+import { cloneDeep } from 'lodash';
 
 const ToolBox = ({
   currentTool,
@@ -19,7 +20,9 @@ const ToolBox = ({
   const editorCtx = useMapEditorContext();
   const onMapClickMarker = (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
     if (editorCtx.theMap) {
-      console.log(editorCtx.mapData);
+      const newMarkers = cloneDeep(editorCtx.markers);
+      newMarkers.push({ imgUrl: null, coords: e.lngLat });
+      editorCtx.setMarkers(newMarkers);
     }
   };
   const onMapClickLabel = (e) => {
@@ -29,6 +32,12 @@ const ToolBox = ({
     console.log('modal');
   };
   const onMapClickStyle = (e) => {};
+  useEffect(() => {
+    if (editorCtx.currentTool === 'marker') {
+      setMapClickCallback(() => onMapClickMarker);
+      console.log(editorCtx.markers);
+    }
+  }, [editorCtx.markers, editorCtx.currentTool]);
   const getCurrentToolSet = () => {
     switch (currentTool) {
       case 'modal':

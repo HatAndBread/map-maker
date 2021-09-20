@@ -4,26 +4,25 @@ import MapboxMap from '../Maps/MapboxMap';
 import Marker from '../Maps/Marker';
 import example from '../../../../assets/images/location.svg';
 import mapboxgl from 'mapbox-gl';
+import { Markers } from '../../Types/Map';
 
 type Props = {
   mapData: Map;
   theMap: mapboxgl.Map;
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
+  markers: Markers;
 };
-const MapWrapper = ({ mapData, setTheMap, theMap }: Props) => {
+const MapWrapper = ({ mapData, setTheMap, theMap, markers }: Props) => {
   return (
     <div className='MapWrapper'>
       <MapboxMap theMap={theMap} setTheMap={setTheMap}>
         {theMap &&
-          [1, 2, 3].map((n) => (
+          markers.map((marker, i) => (
             <Marker
               map={theMap}
-              lngLat={[
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 10 * n),
-              ]}
+              lngLat={marker.coords}
               imgUrl={example}
-              key={n}
+              key={i}
             />
           ))}
       </MapboxMap>

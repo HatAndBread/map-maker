@@ -1,3 +1,5 @@
+import mapboxgl from 'mapbox-gl';
+
 export type Map = {
   createdAt: null | string;
   id: null | string;
@@ -7,4 +9,11 @@ export type Map = {
   name: null | string;
   updatedAt: null | string;
   userId: null | string;
+};
+
+export type Markers = Marker[];
+
+type Marker = {
+  imgUrl: string | null;
+  coords: mapboxgl.LngLat;
 };
