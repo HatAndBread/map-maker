@@ -29,3 +29,13 @@
     justify-content: flex-end;
   }
 }
+
+.ModalEditor {
+  position: fixed;
+  min-width: 250px;
+  min-height: 200px;
+  background-color: snow;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.3s;
+}

@@ -4,6 +4,7 @@ import { Map, Markers } from '../Types/Map';
 import ToolBox from '../Components/Maps/ToolBox';
 import MapWrapper from '../Components/Maps/MapWrapper';
 import EditorModal from '../Components/Modal/EditorModal';
+import ModalEditor from '../Components/Maps/ModalEditor';
 import mapboxgl from 'mapbox-gl';
 
 type EditorProps = {
@@ -15,6 +16,7 @@ type EditorProps = {
   setMarkers: React.Dispatch<React.SetStateAction<Markers>>;
   setMapData: React.Dispatch<React.SetStateAction<Map>>;
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
+  setShowModalEditor: React.Dispatch<React.SetStateAction<boolean>>;
   mapClickCallback: (e: any) => any;
   setCurrentlyOpenModal: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -28,6 +30,7 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
     useAppContext().controllerData.markers as Markers
   );
   const [theMap, setTheMap] = useState<null | mapboxgl.Map>(null);
+  const [showModalEditor, setShowModalEditor] = useState(false);
   const [currentlyOpenModal, setCurrentlyOpenModal] = useState<null | string>(
     null
   );
@@ -49,6 +52,7 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
         setMarkers,
         mapData,
         setMapData,
+        setShowModalEditor,
         mapClickCallback,
         setCurrentlyOpenModal,
       }}>
@@ -68,6 +72,10 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
       <EditorModal
         currentlyOpenModal={currentlyOpenModal}
         setCurrentlyOpenModal={setCurrentlyOpenModal}
+      />
+      <ModalEditor
+        showModalEditor={showModalEditor}
+        setShowModalEditor={setShowModalEditor}
       />
     </MapEditorContext.Provider>
   );

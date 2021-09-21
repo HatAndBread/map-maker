@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useMapEditorContext } from '../../Pages/MapEditor';
 import Icon from './Icon';
 import MarkerTools from './MarkerTools';
+import MarkerData from '../../Classes/MarkerData';
 import markerIconSrc from '../../../../assets/images/pin.svg';
 import labelSrc from '../../../../assets/images/label.svg';
 import modalSrc from '../../../../assets/images/modal.svg';
@@ -21,8 +22,13 @@ const ToolBox = ({
   const onMapClickMarker = (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
     if (editorCtx.theMap) {
       const newMarkers = cloneDeep(editorCtx.markers);
-      newMarkers.push({ imgUrl: null, coords: e.lngLat });
+      newMarkers.push(new MarkerData({ coords: e.lngLat }));
       editorCtx.setMarkers(newMarkers);
+      editorCtx.theMap.flyTo({
+        center: e.lngLat,
+        essential: true,
+      });
+      editorCtx.setShowModalEditor(true);
     }
   };
   const onMapClickLabel = (e) => {
