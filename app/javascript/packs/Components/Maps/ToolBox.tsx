@@ -28,6 +28,7 @@ const ToolBox = ({
         center: e.lngLat,
         essential: true,
       });
+      editorCtx.setModalEditorPos([e.lngLat.lng, e.lngLat.lat]);
       editorCtx.setShowModalEditor(true);
     }
   };

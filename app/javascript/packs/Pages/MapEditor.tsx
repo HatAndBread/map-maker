@@ -13,6 +13,10 @@ type EditorProps = {
   theMap: mapboxgl.Map;
   mapData: Map;
   markers: Markers;
+  currentMarker: HTMLDivElement | null;
+  modalEditorPos: [number, number];
+  setModalEditorPos: React.Dispatch<React.SetStateAction<[number, number]>>;
+  setCurrentMarker: React.Dispatch<React.SetStateAction<HTMLDivElement>>;
   setMarkers: React.Dispatch<React.SetStateAction<Markers>>;
   setMapData: React.Dispatch<React.SetStateAction<Map>>;
   setTheMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>;
@@ -35,12 +39,15 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
     null
   );
   const [currentTool, setCurrentTool] = useState<null | string>(null);
+  const [modalEditorPos, setModalEditorPos] = useState<[number, number]>([
+    30, 30,
+  ]);
   const [mapClickCallback, setMapClickCallback] = useState<(e) => any>(
     () => () => {}
   );
   useEffect(() => {
-    console.log(mapData);
-  }, [mapData]);
+    console.log(modalEditorPos);
+  }, [modalEditorPos]);
   return (
     <MapEditorContext.Provider
       value={{
@@ -52,6 +59,8 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
         setMarkers,
         mapData,
         setMapData,
+        modalEditorPos,
+        setModalEditorPos,
         setShowModalEditor,
         mapClickCallback,
         setCurrentlyOpenModal,
@@ -76,6 +85,7 @@ const MapEditor = ({ edit }: { edit: boolean }) => {
       <ModalEditor
         showModalEditor={showModalEditor}
         setShowModalEditor={setShowModalEditor}
+        modalEditorPos={modalEditorPos}
       />
     </MapEditorContext.Provider>
   );
