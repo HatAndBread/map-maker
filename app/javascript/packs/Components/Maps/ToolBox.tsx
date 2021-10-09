@@ -20,7 +20,11 @@ const ToolBox = ({
 }) => {
   const editorCtx = useMapEditorContext();
   const onMapClickMarker = (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
-    if (editorCtx.theMap) {
+    if (
+      editorCtx.theMap &&
+      (e.originalEvent.target as HTMLTextAreaElement).className ===
+        'mapboxgl-canvas'
+    ) {
       const newMarkers = cloneDeep(editorCtx.markers);
       newMarkers.push(new MarkerData({ coords: e.lngLat }));
       editorCtx.setMarkers(newMarkers);

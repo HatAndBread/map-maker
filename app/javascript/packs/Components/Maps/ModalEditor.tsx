@@ -13,17 +13,23 @@ const ModalEditor = ({
   modalEditorPos: [number, number];
 }) => {
   const [mounted, setMounted] = useState(false);
-  const [theModal, setTheModal] = useState<null | mapboxgl.Marker>(null);
+  const [theModal, setTheModal] = useState<null | mapboxgl.Popup>(null);
   const theMap = useMapEditorContext().theMap;
   const ref = useRef<HTMLDivElement>();
+  const textAreaRef = useRef<HTMLTextAreaElement>();
   useEffect(() => {
     if (theMap && ref.current && !mounted) {
-      const markerOptions = {
-        offset: [80, -160] as mapboxgl.PointLike,
+      const popupOptions = {
+        anchor: 'bottom-left' as mapboxgl.Anchor,
+        offset: [-40, -60] as mapboxgl.PointLike,
+        closeButton: false,
+        closeOnClick: false,
       };
       setTheModal(
-        new mapboxgl.Marker(ref.current, markerOptions)
+        new mapboxgl.Popup(popupOptions)
           .setLngLat(modalEditorPos)
+          .setDOMContent(ref.current)
+          .setMaxWidth('0px')
           .addTo(theMap)
       );
       setMounted(true);
@@ -33,21 +39,25 @@ const ModalEditor = ({
   useEffect(() => {
     if (theModal) {
       theModal.setLngLat(modalEditorPos);
+      if (textAreaRef.current) {
+        textAreaRef.current.focus();
+      }
     }
   }, [modalEditorPos]);
   return (
     <div
       className='ModalEditor'
       ref={ref}
+      onClick={() => console.log('hoo ha')}
       style={
         showModalEditor
           ? {
               opacity: 1,
-              pointerEvents: 'all',
+              pointerEvents: 'initial',
             }
           : { opacity: 0, pointerEvents: 'none' }
       }>
-      <div>HII!!!!!!!!!!!!!!!!!</div>
+      <textarea ref={textAreaRef}></textarea>
     </div>
   );
 };
