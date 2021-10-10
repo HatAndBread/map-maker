@@ -59,3 +59,18 @@
 .mapboxgl-popup-tip {
   border: 0 !important;
 }
+.modal-closer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.closer {
+  border-radius: 4px;
+  padding: 2px 4px;
+  transition: 0.3s;
+  text-align: center;
+}
+.closer:hover {
+  box-shadow: gray 0 0 2px 2px;
+}

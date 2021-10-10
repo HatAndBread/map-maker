@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Marker from './Marker';
 import { useMapEditorContext } from '../../Pages/MapEditor';
 import mapboxgl from 'mapbox-gl';
 
@@ -14,7 +13,10 @@ const ModalEditor = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [theModal, setTheModal] = useState<null | mapboxgl.Popup>(null);
-  const theMap = useMapEditorContext().theMap;
+  const ctx = useMapEditorContext();
+  const theMap = ctx.theMap;
+  const markerBeingEdited = ctx.markerBeingEdited;
+  const markers = ctx.markers;
   const ref = useRef<HTMLDivElement>();
   const textAreaRef = useRef<HTMLTextAreaElement>();
   useEffect(() => {
@@ -48,7 +50,6 @@ const ModalEditor = ({
     <div
       className='ModalEditor'
       ref={ref}
-      onClick={() => console.log('hoo ha')}
       style={
         showModalEditor
           ? {
@@ -57,7 +58,19 @@ const ModalEditor = ({
             }
           : { opacity: 0, pointerEvents: 'none' }
       }>
-      <textarea ref={textAreaRef}></textarea>
+      <div className='modal-closer'>
+        <div
+          className='pointer closer'
+          onClick={() => setShowModalEditor(false)}>
+          X
+        </div>
+      </div>{' '}
+      <textarea
+        ref={textAreaRef}
+        onChange={(e) => {
+          markers[markerBeingEdited].modalTextContent = e.target.value;
+          console.log(markers[markerBeingEdited]);
+        }}></textarea>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const MapboxMap = ({ children, setTheMap, theMap }: Props) => {
     [controllerAction]
   );
   const editorContext = isBeingEdited ? useMapEditorContext() : null;
-  console.log(editorContext, 'sdfkldf');
+
   useEffect(() => {
     if (!theMap && mapContainer.current) {
       mapboxgl.accessToken = process.env.MAPBOX_KEY;

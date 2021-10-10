@@ -33,6 +33,7 @@ const ToolBox = ({
         essential: true,
       });
       editorCtx.setModalEditorPos([e.lngLat.lng, e.lngLat.lat]);
+      editorCtx.setMarkerBeingEdited(newMarkers.length - 1);
       editorCtx.setShowModalEditor(true);
     }
   };
