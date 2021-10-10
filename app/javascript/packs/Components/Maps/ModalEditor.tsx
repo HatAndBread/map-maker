@@ -46,6 +46,13 @@ const ModalEditor = ({
       }
     }
   }, [modalEditorPos]);
+
+  useEffect(() => {
+    const marker = markers[markerBeingEdited];
+    if (textAreaRef.current && markers && marker) {
+      textAreaRef.current.value = marker.modalTextContent;
+    }
+  }, [markerBeingEdited, markers]);
   return (
     <div
       className='ModalEditor'

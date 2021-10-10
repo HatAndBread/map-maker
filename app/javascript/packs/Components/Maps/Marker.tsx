@@ -5,10 +5,12 @@ const Marker = ({
   map,
   lngLat,
   imgUrl,
+  onClick,
 }: {
   map: Map;
   lngLat: LngLatLike;
   imgUrl?: string;
+  onClick?: () => any;
 }) => {
   const markerRef = useRef<HTMLDivElement>();
   const [mounted, setMounted] = useState(false);
@@ -30,7 +32,9 @@ const Marker = ({
       setMounted(true);
     }
   }, [imgUrl, markerRef, mounted]);
-  return imgUrl ? <div className='Marker' ref={markerRef}></div> : null;
+  return imgUrl ? (
+    <div className='Marker' ref={markerRef} onClick={onClick}></div>
+  ) : null;
 };
 
 export default Marker;
